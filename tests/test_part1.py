@@ -6,9 +6,7 @@ Tất cả API đều được mock — không cần API key thật.
 
 import unittest
 from unittest.mock import MagicMock, patch
-
 from tests._loader import MOD
-
 
 def _make_openai_response(text: str = "Hello from OpenAI"):
     """Tạo mock tối thiểu giống một OpenAI ChatCompletion response."""
@@ -17,7 +15,6 @@ def _make_openai_response(text: str = "Hello from OpenAI"):
     resp = MagicMock()
     resp.choices = [choice]
     return resp
-
 
 class TestCallOpenAI(unittest.TestCase):
 
@@ -54,9 +51,7 @@ class TestCallOpenAI(unittest.TestCase):
         self.assertIsInstance(result, tuple)
         self.assertEqual(len(result), 2)
 
-
 class TestCallOpenAIMini(unittest.TestCase):
-
     @patch("openai.OpenAI")
     def test_returns_non_empty_string(self, MockOpenAI):
         mock_client = MagicMock()
@@ -90,9 +85,7 @@ class TestCallOpenAIMini(unittest.TestCase):
         self.assertIsInstance(result, tuple)
         self.assertEqual(len(result), 2)
 
-
 class TestCompareModels(unittest.TestCase):
-
     def test_returns_dict_with_required_keys(self):
         with patch.object(MOD, "call_openai", return_value=("GPT-4o answer", 0.5)), \
              patch.object(MOD, "call_openai_mini", return_value=("Mini answer", 0.3)):
